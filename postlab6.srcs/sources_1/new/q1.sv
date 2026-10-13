@@ -20,14 +20,14 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module q1 #(
+module dFlipFlop #(
     // Hardware divider value; testbenches may override this for fast runs
     parameter int unsigned HALF_PERIOD = 5 * 10 ** 7
 ) (
     input logic clk100MHz,
-    input logic [6:0] A, 
+    input logic [7:0] A, 
     input logic S, 
-    output logic [6:0] Q
+    output logic [7:0] Q
     );
     
     logic slowClk;

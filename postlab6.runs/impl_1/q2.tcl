@@ -1,5 +1,5 @@
 namespace eval ::optrace {
-  variable script "C:/Users/chris/vivado/postlab6/postlab6.runs/impl_1/q1.tcl"
+  variable script "C:/Users/chris/vivado/postlab6/postlab6.runs/impl_1/q2.tcl"
   variable category "vivado_impl"
 }
 
@@ -97,6 +97,8 @@ proc step_failed { step } {
 OPTRACE "impl_1" END { }
 }
 
+set_msg_config -id {Synth 8-256} -limit 10000
+set_msg_config -id {Synth 8-638} -limit 10000
 
 OPTRACE "impl_1" START { ROLLUP_1 }
 OPTRACE "Phase: Init Design" START { ROLLUP_AUTO }
@@ -104,8 +106,11 @@ start_step init_design
 set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
+  set_param checkpoint.writeSynthRtdsInDcp 1
   set_param general.usePosixSpawnForFork 1
   set_param chipscope.maxJobs 4
+  set_param synth.incrementalSynthesisCache C:/Users/chris/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-32376-Seer/incrSyn
+  set_param xicom.use_bs_reader 1
   set_param runs.launchOptions { -jobs 8  }
 OPTRACE "create in-memory project" START { }
   create_project -in_memory -part xc7a35ticpg236-1L
@@ -119,7 +124,7 @@ OPTRACE "set parameters" START { }
   set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
-  add_files -quiet C:/Users/chris/vivado/postlab6/postlab6.runs/synth_1/q1.dcp
+  add_files -quiet C:/Users/chris/vivado/postlab6/postlab6.runs/synth_1/q2.dcp
 OPTRACE "read constraints: implementation" START { }
   read_xdc C:/Users/chris/vivado/postlab6/postlab6.srcs/constrs_1/imports/HDL/Basys3_constraints.xdc
 OPTRACE "read constraints: implementation" END { }
@@ -127,7 +132,7 @@ OPTRACE "read constraints: implementation_pre" START { }
 OPTRACE "read constraints: implementation_pre" END { }
 OPTRACE "add files" END { }
 OPTRACE "link_design" START { }
-  link_design -top q1 -part xc7a35ticpg236-1L 
+  link_design -top q2 -part xc7a35ticpg236-1L 
 OPTRACE "link_design" END { }
 OPTRACE "gray box cells" START { }
 OPTRACE "gray box cells" END { }
@@ -160,11 +165,11 @@ OPTRACE "read constraints: opt_design_post" START { }
 OPTRACE "read constraints: opt_design_post" END { }
 OPTRACE "opt_design reports" START { REPORT }
   set_param project.isImplRun true
-  generate_parallel_reports -reports { "report_drc -file q1_drc_opted.rpt -pb q1_drc_opted.pb -rpx q1_drc_opted.rpx"  }
+  generate_parallel_reports -reports { "report_drc -file q2_drc_opted.rpt -pb q2_drc_opted.pb -rpx q2_drc_opted.rpx"  }
   set_param project.isImplRun false
 OPTRACE "opt_design reports" END { }
 OPTRACE "Opt Design: write_checkpoint" START { CHECKPOINT }
-  write_checkpoint -force q1_opt.dcp
+  write_checkpoint -force q2_opt.dcp
 OPTRACE "Opt Design: write_checkpoint" END { }
   close_msg_db -file opt_design.pb
 } RESULT]
@@ -198,11 +203,11 @@ OPTRACE "read constraints: place_design_post" START { }
 OPTRACE "read constraints: place_design_post" END { }
 OPTRACE "place_design reports" START { REPORT }
   set_param project.isImplRun true
-  generate_parallel_reports -reports { "report_io -file q1_io_placed.rpt" "report_utilization -file q1_utilization_placed.rpt -pb q1_utilization_placed.pb" "report_control_sets -verbose -file q1_control_sets_placed.rpt"  }
+  generate_parallel_reports -reports { "report_io -file q2_io_placed.rpt" "report_utilization -file q2_utilization_placed.rpt -pb q2_utilization_placed.pb" "report_control_sets -verbose -file q2_control_sets_placed.rpt"  }
   set_param project.isImplRun false
 OPTRACE "place_design reports" END { }
 OPTRACE "Place Design: write_checkpoint" START { CHECKPOINT }
-  write_checkpoint -force q1_placed.dcp
+  write_checkpoint -force q2_placed.dcp
 OPTRACE "Place Design: write_checkpoint" END { }
   close_msg_db -file place_design.pb
 } RESULT]
@@ -230,7 +235,7 @@ OPTRACE "read constraints: phys_opt_design_post" END { }
 OPTRACE "phys_opt_design report" START { REPORT }
 OPTRACE "phys_opt_design report" END { }
 OPTRACE "Post-Place Phys Opt Design: write_checkpoint" START { CHECKPOINT }
-  write_checkpoint -force q1_physopt.dcp
+  write_checkpoint -force q2_physopt.dcp
 OPTRACE "Post-Place Phys Opt Design: write_checkpoint" END { }
   close_msg_db -file phys_opt_design.pb
 } RESULT]
@@ -257,11 +262,11 @@ OPTRACE "read constraints: route_design_post" START { }
 OPTRACE "read constraints: route_design_post" END { }
 OPTRACE "route_design reports" START { REPORT }
   set_param project.isImplRun true
-  generate_parallel_reports -reports { "report_drc -file q1_drc_routed.rpt -pb q1_drc_routed.pb -rpx q1_drc_routed.rpx" "report_methodology -file q1_methodology_drc_routed.rpt -pb q1_methodology_drc_routed.pb -rpx q1_methodology_drc_routed.rpx" "report_power -file q1_power_routed.rpt -pb q1_power_summary_routed.pb -rpx q1_power_routed.rpx" "report_route_status -file q1_route_status.rpt -pb q1_route_status.pb" "report_timing_summary -max_paths 10 -routable_nets -report_unconstrained -file q1_timing_summary_routed.rpt -pb q1_timing_summary_routed.pb -rpx q1_timing_summary_routed.rpx -warn_on_violation " "report_incremental_reuse -file q1_incremental_reuse_routed.rpt" "report_clock_utilization -file q1_clock_utilization_routed.rpt" "report_bus_skew -warn_on_violation -file q1_bus_skew_routed.rpt -pb q1_bus_skew_routed.pb -rpx q1_bus_skew_routed.rpx"  }
+  generate_parallel_reports -reports { "report_drc -file q2_drc_routed.rpt -pb q2_drc_routed.pb -rpx q2_drc_routed.rpx" "report_methodology -file q2_methodology_drc_routed.rpt -pb q2_methodology_drc_routed.pb -rpx q2_methodology_drc_routed.rpx" "report_power -file q2_power_routed.rpt -pb q2_power_summary_routed.pb -rpx q2_power_routed.rpx" "report_route_status -file q2_route_status.rpt -pb q2_route_status.pb" "report_timing_summary -max_paths 10 -routable_nets -report_unconstrained -file q2_timing_summary_routed.rpt -pb q2_timing_summary_routed.pb -rpx q2_timing_summary_routed.rpx -warn_on_violation " "report_incremental_reuse -file q2_incremental_reuse_routed.rpt" "report_clock_utilization -file q2_clock_utilization_routed.rpt" "report_bus_skew -warn_on_violation -file q2_bus_skew_routed.rpt -pb q2_bus_skew_routed.pb -rpx q2_bus_skew_routed.rpx"  }
   set_param project.isImplRun false
 OPTRACE "route_design reports" END { }
 OPTRACE "Route Design: write_checkpoint" START { CHECKPOINT }
-  write_checkpoint -force q1_routed.dcp
+  write_checkpoint -force q2_routed.dcp
 OPTRACE "Route Design: write_checkpoint" END { }
 OPTRACE "route_design misc" START { }
   close_msg_db -file route_design.pb
@@ -269,7 +274,7 @@ OPTRACE "route_design misc" START { }
 if {$rc} {
 OPTRACE "route_design write_checkpoint" START { CHECKPOINT }
 OPTRACE "route_design write_checkpoint" END { }
-  write_checkpoint -force q1_routed_error.dcp
+  write_checkpoint -force q2_routed_error.dcp
   step_failed route_design
   return -code error $RESULT
 } else {
@@ -287,16 +292,16 @@ set rc [catch {
   create_msg_db write_bitstream.pb
 OPTRACE "read constraints: write_bitstream" START { }
 OPTRACE "read constraints: write_bitstream" END { }
-  catch { write_mem_info -force -no_partial_mmi q1.mmi }
+  catch { write_mem_info -force -no_partial_mmi q2.mmi }
 OPTRACE "write_bitstream setup" END { }
 OPTRACE "write_bitstream" START { }
-  write_bitstream -force q1.bit 
+  write_bitstream -force q2.bit 
 OPTRACE "write_bitstream" END { }
 OPTRACE "write_bitstream misc" START { }
 OPTRACE "read constraints: write_bitstream_post" START { }
 OPTRACE "read constraints: write_bitstream_post" END { }
-  catch {write_debug_probes -quiet -force q1}
-  catch {file copy -force q1.ltx debug_nets.ltx}
+  catch {write_debug_probes -quiet -force q2}
+  catch {file copy -force q2.ltx debug_nets.ltx}
   close_msg_db -file write_bitstream.pb
 } RESULT]
 if {$rc} {

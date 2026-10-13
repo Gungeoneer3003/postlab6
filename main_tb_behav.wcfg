@@ -11,34 +11,23 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="2,193.001 ns"></ZoomEndTime>
-      <Cursor1Time time="987.000 ns"></Cursor1Time>
+      <ZoomStartTime time="580.220 ns"></ZoomStartTime>
+      <ZoomEndTime time="877.221 ns"></ZoomEndTime>
+      <Cursor1Time time="97.800 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="293"></NameColumnWidth>
-      <ValueColumnWidth column_width="99"></ValueColumnWidth>
+      <ValueColumnWidth column_width="93"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="5" />
+   <WVObjectSize size="2" />
    <wvobject fp_name="/main_tb/sA" type="array">
-      <obj_property name="ElementShortName">sA[7:0]</obj_property>
-      <obj_property name="ObjectShortName">sA[7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/sB" type="array">
-      <obj_property name="ElementShortName">sB[7:0]</obj_property>
-      <obj_property name="ObjectShortName">sB[7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/sCONTROL" type="array">
-      <obj_property name="ElementShortName">sCONTROL[1:0]</obj_property>
-      <obj_property name="ObjectShortName">sCONTROL[1:0]</obj_property>
+      <obj_property name="ElementShortName">sA[6:0]</obj_property>
+      <obj_property name="ObjectShortName">sA[6:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/sQ" type="array">
-      <obj_property name="ElementShortName">sQ[7:0]</obj_property>
-      <obj_property name="ObjectShortName">sQ[7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/max" type="array">
-      <obj_property name="ElementShortName">max[31:0]</obj_property>
-      <obj_property name="ObjectShortName">max[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="ElementShortName">sQ[6:0]</obj_property>
+      <obj_property name="ObjectShortName">sQ[6:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
    </wvobject>
 </wave_config>

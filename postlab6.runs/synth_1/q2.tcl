@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "C:/Users/chris/vivado/postlab6/postlab6.runs/synth_1/q1.tcl"
+  variable script "C:/Users/chris/vivado/postlab6/postlab6.runs/synth_1/q2.tcl"
   variable category "vivado_synth"
 }
 
@@ -56,8 +56,13 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param checkpoint.writeSynthRtdsInDcp 1
 set_param general.usePosixSpawnForFork 1
 set_param chipscope.maxJobs 4
+set_param synth.incrementalSynthesisCache C:/Users/chris/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-32376-Seer/incrSyn
+set_param xicom.use_bs_reader 1
+set_msg_config -id {Synth 8-256} -limit 10000
+set_msg_config -id {Synth 8-638} -limit 10000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a35ticpg236-1L
 
@@ -73,8 +78,13 @@ set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib -sv {
-  C:/Users/chris/vivado/postlab6/postlab6.srcs/sources_1/new/slowClock.sv
+  C:/Users/chris/vivado/postlab6/postlab6.srcs/sources_1/new/dataProcessor.sv
+  C:/Users/chris/vivado/postlab6/postlab6.srcs/sources_1/imports/new/muxFour.sv
+  C:/Users/chris/vivado/postlab6/postlab6.srcs/sources_1/imports/new/muxTwo.sv
   C:/Users/chris/vivado/postlab6/postlab6.srcs/sources_1/new/q1.sv
+  C:/Users/chris/vivado/postlab6/postlab6.srcs/sources_1/new/slowClock.sv
+  C:/Users/chris/vivado/postlab6/postlab6.srcs/sources_1/new/ssd.sv
+  C:/Users/chris/vivado/postlab6/postlab6.srcs/sources_1/new/q2.sv
 }
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -92,7 +102,7 @@ set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
-synth_design -top q1 -part xc7a35ticpg236-1L
+synth_design -top q2 -part xc7a35ticpg236-1L
 OPTRACE "synth_design" END { }
 if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
  send_msg_id runtcl-6 info "Synthesis results are not added to the cache due to CRITICAL_WARNING"
@@ -102,10 +112,10 @@ if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
 OPTRACE "write_checkpoint" START { CHECKPOINT }
 # disable binary constraint mode for synth run checkpoints
 set_param constraints.enableBinaryConstraints false
-write_checkpoint -force -noxdef q1.dcp
+write_checkpoint -force -noxdef q2.dcp
 OPTRACE "write_checkpoint" END { }
 OPTRACE "synth reports" START { REPORT }
-generate_parallel_reports -reports { "report_utilization -file q1_utilization_synth.rpt -pb q1_utilization_synth.pb"  } 
+generate_parallel_reports -reports { "report_utilization -file q2_utilization_synth.rpt -pb q2_utilization_synth.pb"  } 
 OPTRACE "synth reports" END { }
 file delete __synthesis_is_running__
 close [open __synthesis_is_complete__ w]
